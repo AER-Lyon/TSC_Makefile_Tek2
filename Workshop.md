@@ -185,8 +185,8 @@ EXEC = hello
 
 all: $(EXEC)
 
-hello: hello.o main.o
-	$(CC) -o hello hello.o main.o $(LDFLAGS)
+$(EXEC): hello.o main.o
+	$(CC) -o $(EXEC) hello.o main.o $(LDFLAGS)
 
 hello.o: hello.c
 	$(CC) -o hello.o -c hello.c $(CFLAGS)
@@ -252,7 +252,7 @@ EXEC = hello
 
 all: $(EXEC)
 
-hello: hello.o main.o
+$(EXEC): hello.o main.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 hello.o: hello.c
@@ -295,7 +295,7 @@ EXEC = hello
 
 all: $(EXEC)
 
-hello: hello.o main.o
+$(EXEC): hello.o main.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 %.o: %.c
@@ -324,7 +324,7 @@ EXEC = hello
 
 all: $(EXEC)
 
-hello: hello.o main.o
+$(EXEC): hello.o main.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 main.o: hello.h
@@ -362,7 +362,7 @@ EXEC = hello
 
 all: $(EXEC)
 
-hello: hello.o main.o
+$(EXEC): hello.o main.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 main.o: hello.h
@@ -421,7 +421,7 @@ EXEC = hello
 
 all: $(EXEC)
 
-hello: $(OBJ)
+$(EXEC): $(OBJ)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 main.o: hello.h
@@ -472,7 +472,7 @@ else
 	@echo "Génération en mode release"
 endif
 
-hello: $(OBJ)
+$(EXEC): $(OBJ)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 main.o: hello.h
@@ -548,7 +548,7 @@ else
 	@echo "Génération en mode release"
 endif
 
-hello: $(OBJ)
+$(EXEC): $(OBJ)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 main.o: hello.h
@@ -591,7 +591,7 @@ EXEC = hello
 
 all: $(EXEC)
 
-hello: $(OBJ)
+$(EXEC): $(OBJ)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 %.o: %.cpp
@@ -642,7 +642,7 @@ $(BUILDDIR)/%.o:	$(SRC_DIR)/%.cpp
 
 all: $(EXEC)
 
-hello: $(OBJ)
+$(EXEC): $(OBJ)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 clean:
