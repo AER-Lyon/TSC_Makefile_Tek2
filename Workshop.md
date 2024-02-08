@@ -67,7 +67,7 @@ Lors de l'exécution de la commande make, la première règle rentrée, ou la r�
 
 </br>
 
-    Attention, les commandes doivent impérativement précédées d'une tabulation.
+    Attention, les commandes doivent impérativement être précédées d'une tabulation.
 
 
 </br>
@@ -103,7 +103,7 @@ Découpons l'exécution lors de l'exécution de la commande `make` :
 
     - Soit le fichier hello.c est plus récent que le fichier cible hello.o, alors la commande sera exécutée.
 
-    - Dans le cas contraire, la commande ne sera pas exécutéé.
+    - Dans le cas contraire, la commande ne sera pas exécutée.
 
 
 - Les mêmes étapes sont appliquées pour la deuxième dépendance de la règle "hello" et elle-même, soit la commande ne sera exécutée que si un des fichiers hello.o ou main.o est plus récent que l'exécutable hello.
@@ -218,7 +218,7 @@ On a ainsi défini plusieurs variables :
 
 </br>
 
-	Attention, les variables CC, CFLAGS et LDFLAGS sont des variables implicites utilisées par défaut par make. Pour plus de détaile, voir :
+	Attention, les variables CC, CFLAGS et LDFLAGS sont des variables implicites utilisées par défaut par make. Pour plus de détails, voir :
 
 	https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html
 
@@ -347,9 +347,9 @@ re: fclean all
 
 </br>
 
-En parlant de dépendance, que ce passerait-il si un fichier ou un dossier nommé clean se trouvait au même endroit que notre makefile ? Et bien, la règle clean n'ayant pas de dépendance, le fichier ou le dossier serait considéré comme le plus récent et la règle ne serait jamais exécutée.
+En parlant de dépendance, que se passerait-il si un fichier ou un dossier nommé clean se trouvait au même endroit que notre makefile ? Et bien, la règle clean n'ayant pas de dépendance, le fichier ou le dossier serait considéré comme le plus récent et la règle ne serait jamais exécutée.
 
-Pour palier à ce genre de problème, il existe la cible .PHONY. Les règles précisées comme dépendances de celle-ci seront exécutés de manières inconditionnelles, peu importe alors si un fichier existe avec le même nom.
+Pour pallier à ce genre de problème, il existe la cible .PHONY. Les règles précisées comme dépendances de celle-ci seront exécutées de manières inconditionnelles, peu importe alors si un fichier existe avec le même nom.
 
 
 ```Makefile
@@ -387,7 +387,7 @@ re: fclean all
 
 </br>
 
-Lors de la réalisation de projet de plus grande taille, on peut rapidement se retrouver avec de nombreux fichiers, il devient alors fastidieux de tous les lister dans la définition de nos règles de compilation. On va alors utiliser d'autre variable afin de résoudre ce problème :
+Lors de la réalisation de projets de plus grande taille, on peut rapidement se retrouver avec de nombreux fichiers, il devient alors fastidieux de tous les lister dans la définition de nos règles de compilation. On va alors utiliser d'autres variables afin de résoudre ce problème :
 
 - La variable SRC qui contiendra la liste de tous les fichiers source du projet.
 
@@ -446,7 +446,7 @@ re: fclean all
 
 </br>
 
-Lors de la phase de développement d'un projet, il est fortement recommendé d'utiliser les symboles de débogage pour pouvoir tester efficacement sont projets. Or, il ne faut pas que ceux-ci soient présents lors de la mise en production. Pour ce faire, on peut ajouter des conditions à notre makefile, pour que l'on puisse préciser si on est en phase de développement ou non :
+Lors de la phase de développement d'un projet, il est fortement recommandé d'utiliser les symboles de débogage pour pouvoir tester efficacement son projet. Or, il ne faut pas que ceux-ci soient présents lors de la mise en production. Pour ce faire, on peut ajouter des conditions à notre makefile, pour que l'on puisse préciser si on est en phase de développement ou non :
 
 ```Makefile
 # Makefile
@@ -499,7 +499,7 @@ Ainsi, plutôt que de modifier le makefile à chaque fois, il suffit de modifier
 
 </br>
 
-Plus les projets deviennent conséquents, plus il est conseillé de les subdiviser en plusieurs parties. Il n'est donc par rare de devoir compiler plusieurs parties d'un même projet pour qu'il fonctionne. Pour se faire et au lieu d'appeler plusieurs makefile manuellement, il est préférable de créer un makefile "maître" qui se chargera d'appeler les autres makefile du projet. Voici un exemple :
+Plus les projets deviennent conséquents, plus il est conseillé de les subdiviser en plusieurs parties. Il n'est donc pas rare de devoir compiler plusieurs parties d'un même projet pour qu'il fonctionne. Pour ce faire, et au lieu d'appeler plusieurs makefile manuellement, il est préférable de créer un makefile "maître" qui se chargera d'appeler les autres makefile du projet. Voici un exemple :
 
 ```Makefile
 # Makefile maître
