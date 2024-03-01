@@ -5,7 +5,7 @@ subtitle:		Les beaux Makefiles c'est cool
 
 noFormalities:	true
 author:			Arthur Delbarre
-version:		1.0
+version:		2.0
 ---
 
 # Part 1 - A simple Makefile
