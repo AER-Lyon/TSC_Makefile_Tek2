@@ -1,62 +1,71 @@
-# Makefiles
+---
+module:			Epitech Documentation
+title:			Makefiles
+subtitle:		Les beaux Makefiles c'est cool
 
-</br>
+noFormalities:	true
+author:			Arthur Delbarre
+version:		1.0
+---
 
-### Un exemple de projet : Hello World
+# Part 1 - A simple Makefile
 
-</br>
+## Step 1 - Un exemple de projet : Hello World
 
 ```c
 // hello.c
 
-#include <unistd.h>
+#\include <unistd.h>
 
 void say_hello(void)
 {
     write(1, "Hello world !\n", 14);
 }
-
 ```
+
+&nbsp;
 
 ```c
 // hello.h
 
-#ifndef H_HELLO
-    #define H_HELLO
+#\ifndef H_HELLO
+    #\define H_HELLO
 
     void say_hello(void);
 
-#endif
-
+#\endif
 ```
+
+&nbsp;
 
 ```c
 // main.c
 
-#include "hello.h"
+#\include "hello.h"
 
 int main(void)
 {
     say_hello();
     return 0;
 }
-
 ```
 
-</br>
+#newpage
 
-### La syntaxe des Makefiles
+## Step 2 - La syntaxe des Makefiles
 
-</br>
+&nbsp;
 
-Les makefiles sont des fichiers composés de plusieurs règles suivant cette forme :
+Les Makefiles sont des fichiers composés de plusieurs règles suivant cette forme :
+
+&nbsp;
 
 ```
-cible:	dépendances
+cible:	dependances
 	commandes
 ```
 
-</br>
+&nbsp;
 
 Lors de l'exécution de la commande make, la première règle rentrée, ou la règle spécifiée est évaluée. L'évaluation d'une règle se fait en suivant ces étapes :
 
@@ -65,18 +74,19 @@ Lors de l'exécution de la commande make, la première règle rentrée, ou la r�
 
 - Lorsque l'ensemble des dépendances est analysé et si la cible ne correspond pas à un fichier existant ou si un fichier parmi les dépendances est plus récent que le fichier cible, les différentes commandes sont exécutées.
 
-</br>
+&nbsp;
 
-    Attention, les commandes doivent impérativement être précédées d'une tabulation.
+#warn(Attention, les commandes doivent impérativement être précédées d'une tabulation.)
 
+#newpage
 
-</br>
+## Step 3 - Un Makefile minimal
 
-### Un makefile minimal
+&nbsp;
 
-</br>
+On peut donc écrire une première version minimale d'un Makefile pour notre mini projet :
 
-On peut donc écrire une première version minimale de makefile pour notre mini projet :
+&nbsp;
 
 ```Makefile
 # Makefile
@@ -91,7 +101,7 @@ main.o: main.c hello.h
 	gcc -o main.o -c main.c -Wall -Wextra -Werror
 ```
 
-</br>
+&nbsp;
 
 Découpons l'exécution lors de l'exécution de la commande `make` :
 
@@ -106,13 +116,13 @@ Découpons l'exécution lors de l'exécution de la commande `make` :
     - Dans le cas contraire, la commande ne sera pas exécutée.
 
 
-- Les mêmes étapes sont appliquées pour la deuxième dépendance de la règle "hello" et elle-même, soit la commande ne sera exécutée que si un des fichiers hello.o ou main.o est plus récent que l'exécutable hello.
+- Les mêmes étapes sont appliquées pour la deuxième dépendance de la règle "hello" et elle-même. Ainsi, la commande ne sera exécutée que si un des fichiers hello.o ou main.o est plus récent que l'exécutable hello.
 
-</br>
+#newpage
 
-### Un Makfile plus évolué
+# Part 2 - Un Makfile plus évolué
 
-</br>
+&nbsp;
 
 Dans la version écrite précédemment, plusieurs choses posent problème :
 
@@ -124,7 +134,7 @@ Dans la version écrite précédemment, plusieurs choses posent problème :
 
 - Il n'est pas possible de forcer la génération intégrale du projet.
 
-</br>
+&nbsp;
 
 Ces problèmes trouvent leur solution dans l'ajout de plusieurs règles :
 
@@ -136,9 +146,11 @@ Ces problèmes trouvent leur solution dans l'ajout de plusieurs règles :
 
 - La règle `re`, elle permet de regénérer l'ensemble du projet.
 
-</br>
+&nbsp;
 
-Voilà à quoi ressemble notre makefile maintenant :
+Voilà à quoi ressemble notre Makefile maintenant :
+
+&nbsp;
 
 ```Makefile
 # Makefile
@@ -163,17 +175,19 @@ fclean: clean
 re: fclean all
 ```
 
-</br>
+#newpage
 
-### Utilisation des variables
+## Step 2 - Utilisation des variables
 
-</br>
+&nbsp;
 
-Il est en effet possible de définir des variables dans un makefile, cela les rend plus agréables à lire, mais aussi à faire évoluer.
+Il est en effet possible de définir des variables dans un Makefile, cela les rend plus agréables à lire, mais aussi à faire évoluer.
 
 Les variables se déclarent sous la forme NOM = VALEUR et s'utilisent via la syntaxe $(NOM).
 
-Nous allons donc pouvoir rajouter des variables à notre makefile :
+Nous allons donc pouvoir rajouter des variables à notre Makefile :
+
+&nbsp;
 
 ```Makefile
 # Makefile
@@ -203,7 +217,7 @@ fclean: clean
 re: fclean all
 ```
 
-</br>
+&nbsp;
 
 On a ainsi défini plusieurs variables :
 
@@ -216,21 +230,22 @@ On a ainsi défini plusieurs variables :
 - EXEC contient le nom des exécutables à générer.
 
 
-</br>
+&nbsp;
 
-	Attention, les variables CC, CFLAGS et LDFLAGS sont des variables implicites utilisées par défaut par make. Pour plus de détails, voir :
+#warn(Attention, les variables CC, CFLAGS et LDFLAGS sont des variables implicites utilisées par défaut par make. Pour plus de détails, voir [Gnu.org](https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html))
 
-	https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html
+#newpage
 
-</br>
+## Step 3 - Les variables internes
 
-### Les variables internes
+&nbsp;
 
-</br>
+Comme en shell script, il existe des variables internes au Makefile :
 
-Comme en shell script, il existe des variables internes au makefile :
+&nbsp;
+&nbsp;
 
-|||
+| Variable| Correspondence |
 |:--:|:--:|
 | $@ | Le nom de la cible |
 | $< | Le nom de la première dépendance |
@@ -238,9 +253,12 @@ Comme en shell script, il existe des variables internes au makefile :
 | $? | La liste des dépendances plus récentes que la cible |
 | $* | Le nom du fichier sans suffixe |
 
-</br>
+&nbsp;
+&nbsp;
 
-On peut donc simplifier notre makefile grâce à ces variables, ce qui nous donne :
+On peut donc simplifier notre Makefile grâce à ces variables, ce qui nous donne :
+
+&nbsp;
 
 ```Makefile
 # Makefile
@@ -270,22 +288,26 @@ fclean: clean
 re: fclean all
 ```
 
-</br>
+#newpage
 
-### Les règles d'inférence
+## Step 4 - Les règles d'inférence
 
-</br>
+### Part 4.1 - Une règle d'inférence générique
 
-La syntaxe des makefiles nous permet de déclarer des règles génériques, telles qu'une règle qui permet de définir la construction d'un fichier .o depuis un fichier .c :
+&nbsp;
+
+La syntaxe des Makefiles nous permet de déclarer des règles génériques, telles qu'une règle qui permet de définir la construction d'un fichier .o depuis un fichier .c :
+
+&nbsp;
 
 ```Makefile
 %.o: %.c
 	commandes
 ```
 
-</br>
+&nbsp;
 
-Il est alors possible de simplifier notre makefile :
+Il est alors possible de simplifier notre Makefile :
 
 ```Makefile
 CC = gcc
@@ -310,9 +332,15 @@ fclean: clean
 re: fclean all
 ```
 
-</br>
+#newpage
 
-Le problème de cette version est que le fichier main.o n'est plus reconstruit si le fichier hello.h est plus récent. Il est alors possible de faire fonctionner notre règle d'ingérence avec une règle permettant de spécifier la dépendance entre ces deux fichiers :
+### Part 4.1 - La gestion de dépendences
+
+&nbsp;
+
+Le problème de cette version est que le fichier main.o n'est plus reconstruit si le fichier hello.h est plus récent. Il est alors possible de faire fonctionner notre règle d'inférence avec une règle permettant de spécifier la dépendance entre ces deux fichiers :
+
+&nbsp;
 
 ```Makefile
 # Makefile
@@ -341,16 +369,17 @@ fclean: clean
 re: fclean all
 ```
 
-</br>
+#newpage
 
-### Le .PHONY
+## Step 5 -  Le .PHONY
 
-</br>
+&nbsp;
 
-En parlant de dépendance, que se passerait-il si un fichier ou un dossier nommé clean se trouvait au même endroit que notre makefile ? Et bien, la règle clean n'ayant pas de dépendance, le fichier ou le dossier serait considéré comme le plus récent et la règle ne serait jamais exécutée.
+En parlant de dépendance, que se passerait-il si un fichier ou un dossier nommé clean se trouvait au même endroit que notre Makefile ? Et bien, la règle clean n'ayant pas de dépendance, le fichier ou le dossier serait considéré comme le plus récent et la règle ne serait jamais exécutée.
 
 Pour pallier à ce genre de problème, il existe la cible .PHONY. Les règles précisées comme dépendances de celle-ci seront exécutées de manières inconditionnelles, peu importe alors si un fichier existe avec le même nom.
 
+&nbsp;
 
 ```Makefile
 # Makefile
@@ -381,33 +410,41 @@ re: fclean all
 .PHONY: clean fclean re
 ```
 
-</br>
+#newpage
 
-### La construction des fichiers objets
+## Step 6 - La construction des fichiers objets
 
-</br>
+&nbsp;
 
 Lors de la réalisation de projets de plus grande taille, on peut rapidement se retrouver avec de nombreux fichiers, il devient alors fastidieux de tous les lister dans la définition de nos règles de compilation. On va alors utiliser d'autres variables afin de résoudre ce problème :
 
 - La variable SRC qui contiendra la liste de tous les fichiers source du projet.
 
-- La variable OBJ qui contiendra la liste des fichiers objets.
+- La variable OBJ qui contiendra la liste des fichiers objet.
 
 La variable SRC se définit de manière assez simple :
+
+&nbsp;
 
 ```Makefile
 SRC = hello.c main.c
 ```
 
+&nbsp;
+
 Et si l'on réfléchit bien, le contenu de la variable OBJ est presque le même, à ceci près que, les fichiers se termineront en .o au lieu de .c. Or, il existe une syntaxe qui permet de faire cette conversion à partir de la variable SRC :
+
+&nbsp;
 
 ```Makefile
 OBJ = $(SRC:.c=.o)
 ```
 
-</br>
+&nbsp;
 
-Voilà donc à quoi ressemble noter makefile avec ces deux nouvelles variables :
+Voilà donc à quoi ressemble noter Makefile avec ces deux nouvelles variables :
+
+&nbsp;
 
 ```Makefile
 # Makefile
@@ -440,13 +477,15 @@ re: fclean all
 .PHONY: clean fclean re
 ```
 
-</br>
+#newpage
 
-### L'utilisation de conditions
+## Step 7 - L'utilisation de conditions
 
-</br>
+&nbsp;
 
-Lors de la phase de développement d'un projet, il est fortement recommandé d'utiliser les symboles de débogage pour pouvoir tester efficacement son projet. Or, il ne faut pas que ceux-ci soient présents lors de la mise en production. Pour ce faire, on peut ajouter des conditions à notre makefile, pour que l'on puisse préciser si on est en phase de développement ou non :
+Lors de la phase de développement d'un projet, il est fortement recommandé d'utiliser les symboles de débogage pour pouvoir tester efficacement son projet. Or, il ne faut pas que ceux-ci soient présents lors de la mise en production. Pour ce faire, on peut ajouter des conditions à notre Makefile, pour que l'on puisse préciser si on est en phase de développement ou non :
+
+&nbsp;
 
 ```Makefile
 # Makefile
@@ -467,9 +506,9 @@ EXEC = hello
 
 all: $(EXEC)
 ifeq ($(DEBUG), yes)
-	@echo "Génération en mode debug"
+	@echo "Generation en mode debug"
 else
-	@echo "Génération en mode release"
+	@echo "Generation en mode release"
 endif
 
 hello: $(OBJ)
@@ -491,18 +530,24 @@ re: fclean all
 .PHONY: clean fclean re
 ```
 
-Ainsi, plutôt que de modifier le makefile à chaque fois, il suffit de modifier la variable DEBUG.
+&nbsp;
 
-</br>
+Ainsi, plutôt que de modifier le Makefile à chaque fois, il suffit de modifier la variable DEBUG.
 
-### Les sous-makefile
+#newpage
 
-</br>
+# Part 3 - Aller plus loin
 
-Plus les projets deviennent conséquents, plus il est conseillé de les subdiviser en plusieurs parties. Il n'est donc pas rare de devoir compiler plusieurs parties d'un même projet pour qu'il fonctionne. Pour ce faire, et au lieu d'appeler plusieurs makefile manuellement, il est préférable de créer un makefile "maître" qui se chargera d'appeler les autres makefile du projet. Voici un exemple :
+## Step 1 - Les sous-makefile
+
+&nbsp;
+
+Plus les projets deviennent conséquents, plus il est conseillé de les subdiviser en plusieurs parties. Il n'est donc pas rare de devoir compiler plusieurs parties d'un même projet pour qu'il fonctionne. Pour ce faire, et au lieu d'appeler plusieurs Makefile manuellement, il est préférable de créer un Makefile "maître" qui se chargera d'appeler les autres Makefile du projet. Voici un exemple :
+
+&nbsp;
 
 ```Makefile
-# Makefile maître
+# Makefile maitre
 
 HELLO_DIR = hello
 EXEC = $(HELLO_DIR)/hello
@@ -524,6 +569,8 @@ re:
 .PHONY: clean fclean re $(EXEC)
 ```
 
+#newpage
+
 ```Makefile
 # Makefile
 
@@ -543,9 +590,9 @@ EXEC = hello
 
 all: $(EXEC)
 ifeq ($(DEBUG), yes)
-	@echo "Génération en mode debug"
+	@echo "Generation en mode debug"
 else
-	@echo "Génération en mode release"
+	@echo "Generation en mode release"
 endif
 
 hello: $(OBJ)
@@ -567,15 +614,15 @@ re: fclean all
 .PHONY: clean fclean re
 ```
 
-</br>
+#newpage
 
-### La gestion des dépendances
+## Step 2 - La gestion des dépendances
 
-</br>
+&nbsp;
 
 Comme précisé précédemment, il est possible de créer des dépendances manuellement entre les fichiers sources et les header files. Mais, en c++ il arrive de travailler avec beaucoup de header files, il devient alors fastidieux d'écrire toutes les dépendances à la main. Heureusement, il existe une solution pour forcer la génération de ces dépendances lors de la compilation. Pour ce faire, il suffit de rajouter le flag `-MD` dans la règle d'inférence qui définit le passage des fichiers .cpp en .o et d'include les fichiers `.d` qui seront générés. Ce sont ces fichiers qui contiendront les informations nécessaires à la résolution des dépendances.
 
-</br>
+&nbsp;
 
 ```Makefile
 # Makefile
@@ -610,15 +657,15 @@ re: fclean all
 .PHONY: clean fclean re
 ```
 
-</br>
+#newpage
 
-### Arborescence de fichier (String Substitution)
+## Step 3 - Arborescence de fichier (String Substitution)
 
-</br>
+&nbsp;
 
 Maintenant que nous avons vu comment générer les fichiers .d, il devient difficile de se repérer dans les fichiers sources qui sont mélangés avec les fichiers générés lors de la compilation. Pour résoudre ce problème, on va pouvoir se servir des règles de `string substitution`. En effet, celles-ci vont nous être utiles pour générer une copy de l'arborescence des fichiers sources pour les fichiers de compilation.
 
-</br>
+&nbsp;
 
 ```Makefile
 # Makefile
@@ -658,11 +705,13 @@ re: fclean all
 .PHONY: clean fclean re
 ```
 
-</br>
+&nbsp;
 
 Ici, on utilise la fonction de string substitution `patsubst` afin de créer la copie de l'architecture des fichiers source.
 
 Cette fonction respecte le pattern suivant :
+
+&nbsp;
 
 ```Makefile
 $(patsubst pattern,replacement,text)

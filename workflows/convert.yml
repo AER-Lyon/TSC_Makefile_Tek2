@@ -1,0 +1,30 @@
+name: Generate pdf
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.md'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**.md'
+
+jobs:
+  convert_via_pandoc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: create file list
+        id: files_list
+        run: echo "::set-output name=md_files::$(find . -name '*.md' ! -name '*README*' -printf '"%p" ')"
+      - name: converting .md to .pdf
+        uses: docker://epitechcontent/subject_template
+        with:
+          args: ${{ steps.files_list.outputs.md_files }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pdf_files
+          path: '**/*.pdf'
