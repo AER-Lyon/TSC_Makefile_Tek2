@@ -334,7 +334,7 @@ re: fclean all
 
 #newpage
 
-### Part 4.1 - La gestion de dépendences
+### Part 4.2 - La gestion de dépendences
 
 &nbsp;
 
